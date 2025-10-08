@@ -14,3 +14,7 @@ def home (request):
     display = ", ".join(tasks_titles)
     return HttpResponse(display)
 
+def tasks_list(request):
+    
+    context = { "titles": list(Task.objects.all())}
+    return render(request, 'todo_list/index1.html', context)

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tasks list</title>
+  </head>
+  <body>
+    <h1>Tasks List:</h1>
+    <ul>
+      {% for i in titles %}
+      <li>{{i.title}}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
