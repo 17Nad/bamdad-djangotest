@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Students list</title>
+  </head>
+  <body>
+    <h1>Students List:</h1>
+    <ul>
+      name | major | grad
+       {% for i in all %}
+      <li>{{ i.name }} | {{ i.field }} | {{ i.grade }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

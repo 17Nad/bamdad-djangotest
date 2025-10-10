@@ -1,4 +1,7 @@
 from django.db import models
+from students.models import Student
+
+
 
 class Task(models.Model):
     title = models.CharField(max_length = 256)
@@ -6,4 +9,16 @@ class Task(models.Model):
     description = models.TextField()
     deadline = models.DateTimeField()
     isdone = models.BooleanField(default = False)
-    # user = models.ForeignKey(User)
+    belongsto = models.ForeignKey(Student , on_delete = models.CASCADE)
+    
+    def __str__(self):
+        return self.title
+    
+    
+    
+class Tag(models.Model):
+    title = models.CharField(max_length=32)
+    tasks = models.ManyToManyField(Task)
+    
+    def __str__(self):
+        return self.title

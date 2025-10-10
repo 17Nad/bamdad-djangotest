@@ -3,7 +3,7 @@ from students.views import *
 
 
 urlpatterns = [
-    path('students/', students),
-    path('top_students/', top_students)
+    path('all_students/', all_students),
+    # path('top_students/', top_students)
 
 ]

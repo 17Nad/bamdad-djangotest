@@ -7,8 +7,9 @@
   <body>
     <h1>Tasks List:</h1>
     <ul>
+      <p>Task | Who is for</p>
       {% for i in titles %}
-      <li>{{i.title}}</li>
+      <li>{{i.title}} | {{i.belongsto}}</li>
       {% endfor %}
     </ul>
   </body>
