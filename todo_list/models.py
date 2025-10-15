@@ -15,7 +15,6 @@ class Task(models.Model):
         return self.title
     
     
-    
 class Tag(models.Model):
     title = models.CharField(max_length=32)
     tasks = models.ManyToManyField(Task)

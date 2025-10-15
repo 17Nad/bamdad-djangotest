@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ali's tasks</title>
+  </head>
+  <body>
+    <h1>Ali's tasks</h1>
+    <ul>
+      task | who is for 
+       {% for i in tasks %}
+      <li>{{ i.title }} | {{ i.belongsto }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

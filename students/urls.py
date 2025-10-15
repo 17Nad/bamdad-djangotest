@@ -4,6 +4,8 @@ from students.views import *
 
 urlpatterns = [
     path('all_students/', all_students),
-    # path('top_students/', top_students)
+    #path('top_students/', top_students),
+    path('add_student/', new_student),
+    path ('courses/', courses)
 
 ]

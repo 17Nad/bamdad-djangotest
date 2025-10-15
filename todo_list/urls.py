@@ -4,5 +4,6 @@ from todo_list.views import *
 
 urlpatterns = [
     path('home/', home),
-    path('tasks/', tasks_list)
+    path('tasks/', tasks_list),
+    path('ali/', ali_tasks)
 ]

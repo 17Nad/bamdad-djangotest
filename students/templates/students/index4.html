@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Students list</title>
+    <title>List of courses</title>
   </head>
   <body>
-    <h1>Students List:</h1>
+    <h1>List of courses</h1>
     <ul>
-      name | major | grade
+      Title | Starting date | Ending date
        {% for i in all %}
-      <li>{{ i.name }} | {{ i.field }} | {{ i.grade }}</li>
+      <li>{{ i.title }} | {{ i.start }} | {{ i.end }}</li>
       {% endfor %}
     </ul>
   </body>
