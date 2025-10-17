@@ -9,7 +9,7 @@ class Task(models.Model):
     description = models.TextField()
     deadline = models.DateTimeField()
     isdone = models.BooleanField(default = False)
-    belongsto = models.ForeignKey(Student , on_delete = models.CASCADE)
+    belongsto = models.ForeignKey(Student , on_delete = models.CASCADE, related_name="tasks")
     
     def __str__(self):
         return self.title

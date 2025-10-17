@@ -19,6 +19,6 @@ def tasks_list(request):
     context = { "titles": list(Task.objects.all())}
     return render(request, 'todo_list/index1.html', context)
 
-def ali_tasks(request):
-    context = { "tasks": list(Task.objects.filter(belongsto=1)) }
+def students_tasks(request, st):
+    context = { "tasks": list(Task.objects.filter(belongsto_id=st)) }
     return render(request, 'todo_list/index3.html', context)

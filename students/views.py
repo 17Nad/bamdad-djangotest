@@ -20,6 +20,6 @@ def new_student(request):
 #     context = {"tasks": Student.objects.filter(id=1)}
 #     return render(request, 'students/index3.html', context)
 
-def courses(request):
-    context = { "all" : list(Course.objects.all())}
+def courses_view(request):
+    context = { "all" : Course.objects.all()}
     return render(request, 'students/index4.html', context)
