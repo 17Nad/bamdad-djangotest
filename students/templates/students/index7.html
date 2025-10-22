@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Students form</title>
+  </head>
+  <body>
+    <h1>Students Form</h1>
+    <p>please enter your information:</p>
+    <form actions={% url "students:studentDashboard" %} method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+    {{ message }}
+  </body>

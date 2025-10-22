@@ -5,7 +5,7 @@ from django.db import models
 class Student (models.Model):
     name = models.CharField(max_length=128)
     field = models.CharField(max_length=256)
-    grade = models.PositiveIntegerField()
+    grade = models.PositiveIntegerField(default=0)
 #    tasks = models.ForeignKey(Task)
     phone_number = models.CharField (max_length=13, default="+989000000000")
 
