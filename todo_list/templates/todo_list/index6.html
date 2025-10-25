@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Students list</title>
+    <title>Tasks List</title>
   </head>
   <body>
-    <h1>Students List:</h1>
+    <h1>Tasks List:</h1>
     <ul>
       <h3>name | major | grade:</h3>
         {% for i in top %}
@@ -16,13 +16,3 @@
               <li> {{ course.title }} </li>
             {% endfor %}        
           </ul>
-          <h4>Tasks:</h4>
-          <ul>
-            {% for task in i.tasks.all %}
-              <li> {{ task.title }} </li>
-            {% endfor %}        
-          </ul>
-        {% endfor %}
-    </ul>
-  </body>
-</html>

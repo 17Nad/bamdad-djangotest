@@ -2,6 +2,7 @@ from django.db import models
 # from todo_list.models import Task
 
 
+
 class Student (models.Model):
     name = models.CharField(max_length=128)
     field = models.CharField(max_length=256)
@@ -13,19 +14,22 @@ class Student (models.Model):
         return self.name
     
     
-user_status = {
+activity_status = {
     0 : "offline",
     1 : "online",
     2 : "invisible",
     3 : "do not disturb"
 }
 class Profile(models.Model):
-    bio = models.TextField()
-    username = models.CharField()
+    bio = models.TextField(max_length=512, default="")
+    username = models.CharField(max_length=32)
     birthday = models.DateField()
     # avatar = models.ImageField()
     belongsto = models.OneToOneField(Student, on_delete=models.CASCADE, primary_key=True)
-    status = models.PositiveIntegerField(choices=user_status)
+    status = models.PositiveIntegerField(choices=activity_status)
+
+    def __str__(self):
+        return self.belongsto.name + "'s Profile"
     
     
 class Course(models.Model):

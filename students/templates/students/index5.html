@@ -7,22 +7,15 @@
   <body>
     <h1>Students List:</h1>
     <ul>
-      <h3>name | major | grade:</h3>
-        {% for i in top %}
+      <h5>name | major | grade:</h5>
+        {% for i in key %}
           <li>{{ i.name }} | {{ i.field }} | {{ i.grade }}</li>
           <h4>Courses:</h4>
           <ul>
+            <h5>title | start | end: description</h5>
             {% for course in i.courses.all %}
-              <li> {{ course.title }} </li>
+              <li> {{ course.title }} | {{ course.start }} | {{course.end}} <br> {{course.description}} </li>
             {% endfor %}        
           </ul>
-          <h4>Tasks:</h4>
-          <ul>
-            {% for task in i.tasks.all %}
-              <li> {{ task.title }} </li>
-            {% endfor %}        
-          </ul>
-        {% endfor %}
+          {% endfor %}
     </ul>
-  </body>
-</html>
