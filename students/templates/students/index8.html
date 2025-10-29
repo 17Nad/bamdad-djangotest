@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}User Register{% endblock %}
+
+{% block content %}
+ <h1>New Course</h1>
+    <p>Please fill the fields:</p>
+    <form actions="students/index8.html" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+    <p style="color:Tomato;"> {{ message1 }} </p>
+    <p style="color:Green;"> {{ message0 }} </p>
+{% endblock %}

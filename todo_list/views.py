@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Task
+from .models import *
+from .forms import *
 
 
 def length_check(name):
@@ -24,7 +25,9 @@ def students_tasks(request, st):
     return render(request, 'todo_list/index3.html', context)
 
 """یک view بنویسید که به دانشجو اجازه دهد وضعیت یک تسک خاص (done) را تغییر دهد (از انجام نشده به انجام شده و برعکس)  و در نهایت جزییات آن را نمایش دهد (با ارسال id هر تسک در url)"""
-def mark_tasks(request, id):
-    context = { "key" : Task.objects.filter(id=id)}
-    return render(request, 'todo_list/index6.html', context)
+def tasks_info(request, id): #TODO: use update method
+    if request.method == "GET":
+        context = { "key" : Task.objects.get(id=id),
+                   "form" : TaskInfo } 
+        return render(request, 'todo_list/index6.html', context)
     

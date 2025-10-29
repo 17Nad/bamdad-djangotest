@@ -2,17 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Tasks List</title>
+    <title>Tasks Status</title>
   </head>
   <body>
-    <h1>Tasks List:</h1>
+    <h1>Tasks Status</h1>
     <ul>
-      <h3>name | major | grade:</h3>
-        {% for i in top %}
-          <li>{{ i.name }} | {{ i.field }} | {{ i.grade }}</li>
-          <h4>Courses:</h4>
-          <ul>
-            {% for course in i.courses.all %}
-              <li> {{ course.title }} </li>
-            {% endfor %}        
-          </ul>
+        <li>{{ key.title }}</li>
+        <li>{{ key.category }}</li>
+        <li>{{ key.description }}</li>
+        <li>{{ key.isdone }}</li>      
+    </ul>
+
+    <form actions={% url "todo_list:tasksInfo" %} method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>

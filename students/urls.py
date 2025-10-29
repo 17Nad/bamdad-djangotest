@@ -11,6 +11,6 @@ urlpatterns = [
     path('student_dashboard/', student_dashboard, name="studentDashboard"),
     path ('courses/', all_courses),
     path('select_courses/<int:id>', select_courses),
-    path('student_courses/<int:id>', student_courses)
-
+    path('student_courses/<int:id>', student_courses),
+    path('new_course/', new_course, name="newCourse")
 ]

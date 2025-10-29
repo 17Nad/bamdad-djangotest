@@ -6,5 +6,5 @@ urlpatterns = [
     path('home/', home),
     path('tasks/', tasks_list),
     path("students_tasks/<int:st>/", students_tasks),
-    path("mark_tasks/<int:id>/", mark_tasks)
+    path("mark_tasks/<int:id>/", tasks_info, name="tasksInfo")
 ]
