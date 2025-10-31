@@ -1,5 +1,6 @@
 from django.urls import path
 from students.views import *
+from students.viewss import *
 
 app_name = "students"
 urlpatterns = [
@@ -9,8 +10,9 @@ urlpatterns = [
     path ('courses/', all_courses),
     path("student_form/", student_form, name="studentForm" ),
     path('student_dashboard/', student_dashboard, name="studentDashboard"),
-    path ('courses/', all_courses),
+    path ("new_student_form/", StudentForm.as_view()),
     path('select_courses/<int:id>', select_courses),
     path('student_courses/<int:id>', student_courses),
-    path('new_course/', new_course, name="newCourse")
+    path('new_course/', new_course, name="newCourse"),
+    path('all_teachers/', TeacherView.as_view() ) 
 ]

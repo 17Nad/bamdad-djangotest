@@ -55,23 +55,5 @@ def student_form(request):
 def student_dashboard(request):
     return HttpResponse("this is your dashboard")
 
-def new_course(request):
-    courseFormPage = "students/index8.html"
-    if request.method == "GET":
-        return render(request, courseFormPage, {"form": CourseForm})
-    elif request.method == "POST":
-        try:            
-            new = Course.objects.create(
-                title=request.POST["title"],
-                description=request.POST["description"],
-                start=request.POST["start"],
-                end=request.POST["end"] )
-            context = {
-                "form": CourseForm,
-                "message0": """Course created successfully!\n
-                          If you want to create another course, please fill the form."""}
-        except ValueError:
-            context = {
-                "form": CourseForm,
-                "message1": "Invalid date format. Please enter dates in this format: YYYY-MM-DD" }
-        return render(request, courseFormPage, context)
+
+
