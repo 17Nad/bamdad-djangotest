@@ -36,7 +36,7 @@ class Profile(models.Model):
     phone_number = models.CharField (max_length=13, default="+989000000000")
     birthday = models.DateField()
     # avatar = models.ImageField()
-    belongsto = models.OneToOneField(role, on_delete=models.CASCADE)
+    #belongsto = models.OneToOneField(role, on_delete=models.CASCADE)
     status = models.PositiveIntegerField(choices=activity_status)
     
     def __str__(self):

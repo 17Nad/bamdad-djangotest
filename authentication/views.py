@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse, HttpResponseForbidden
 from django.views import View
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
 
 """یک view بنویسید که فرم ساده ای برای ایجاد یک دانشجوی جدید (Student) باشد 
@@ -31,24 +33,44 @@ class UserRegister(View):
             return render (request, self.template, context)
         
  # TODO: compelete ts       
-class LoginView(View):
-    def get(self, request):
-        pass
-    
-class LogOutView(View):
-    def get(self, request):
-        if request.user.is_authentucated:
-            logout(request)
-            return redirect("account:user-login")
+class UserLogin(View):
+    form = UserRegisterForm
+    template = 'authentication/login.html'
 
-class DeleteUser(View):
+    def get(self, request):
+        return render (request, self.template, {"form": self.form})
+    
+    def post (self, request):
+        info = AuthenticationForm(request, data=request.POST)
+        if info.is_valid():
+            user = info.get_user()
+            if user and user.is_authenticated:
+                login(request, user)
+                return redirect ("students:studentDashboard")
+        else: 
+            context ={"form": self.form,
+                      "message": "Username or password is invalid."}
+            return render(request, self.template, context)
+                   
+    
+class UserLogOut(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            logout(request)
+            return redirect("authentication:login")
+        else: 
+            return redirect("students:studentDashboard")
+
+class UserDelete(View):
     def get(self, request):
         if request.user.is_authenticated:
             try:
-                user = User.objects.get(id=user.request.id)
-                user.delete()
+                logout(request)
+                request.user.delete()
                 return redirect("authentication:register")
             except:
-                return render()
+                return HttpResponse("<h1>Error</h1>")
+        else:
+            return HttpResponseForbidden("<h1>403: Access Denied</h1><p>You don't have permission to delete this user!</p>")
 
 # object.is_valid()

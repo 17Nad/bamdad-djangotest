@@ -39,8 +39,7 @@ class CreateCourse(View):
                 end=request.POST["end"] )
             context = {
                 "form": CourseForm,
-                "message0": """Course created successfully!\n
-                          If you want to create another course, please fill the form."""}
+                "message0": "Course created successfully!\n If you want to create another course, please fill the form."}
         except ValueError:
             context = {
                 "form": CourseForm,
