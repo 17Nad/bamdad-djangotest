@@ -5,21 +5,21 @@ from django.contrib.auth.models import User
 
 
 class Student (models.Model):
-    name = models.CharField(max_length=128)
-    field = models.CharField(max_length=256)
+    major = models.CharField(max_length=256)
     grade = models.PositiveIntegerField(default=0)
-#    tasks = models.ForeignKey(Task)
+    #achievements = models.ManyToManyField(Achievement, related_name="students")
     user= models.OneToOneField("Profile", on_delete = models.CASCADE, related_name="student", null = True)
     def __str__(self):
-        return self.name
+        return self.user.name
     
 
 class Teacher (models.Model):
-    name = models.CharField(max_length=128)
+    major = models.CharField(max_length=256, null=True, blank=True)
     score = models.PositiveIntegerField(default=0)
-    user= models.OneToOneField("Profile", on_delete = models.CASCADE, related_name="teacher" , null = True)
+    #achievements = models.ManyToManyField(Achievement, related_name="teachers")
+    user = models.OneToOneField("Profile", on_delete = models.CASCADE, related_name="teacher" , null = True)
     def __str__(self):
-        return self.name
+        return self.user.name
     
 
 # activity_status = {
@@ -31,15 +31,17 @@ class Teacher (models.Model):
 # role = { 1 : Student, 2 : Teacher }
 
 class Profile(models.Model):
+    name = models.CharField(max_length=128, default="")
     bio = models.TextField(max_length=512, default="")
     phone_number = models.CharField (max_length=13, default="+989000000000")
     birthday = models.DateField()
     #avatar = models.ImageField(null=True, blank=True)
-    belongsto = models.OneToOneField(User, on_delete=models.CASCADE)
-    # status = models.PositiveIntegerField(choices=activity_status)
+    belongsto = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    is_teacher = models.BooleanField(default=False)
+    # status = models.PositiveIntegretuerField(choices=activity_status)
     
     def __str__(self):
-        return f"{self.belongsto.name}'s Profile"
+        return f"{self.name}'s Profile"
     
     
 class Course(models.Model):
@@ -49,6 +51,16 @@ class Course(models.Model):
     end = models.DateField()
     students = models.ManyToManyField(Student, related_name="courses")
     teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL ,null=True, blank=True)
+    is_active = models.BooleanField(default = False)
 
     def __str__(self):
         return self.title
+    
+
+class Achievements(models.Model):
+    title = models.CharField (max_length=128)
+    description = models.TextField
+
+    def __str__(self):
+        return self.title
+    

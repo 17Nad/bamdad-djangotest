@@ -1,5 +1,5 @@
 from django.db import models
-from students.models import Student
+from students.models import Student, Teacher
 
 
 
@@ -10,6 +10,7 @@ class Task(models.Model):
     deadline = models.DateTimeField()
     isdone = models.BooleanField(default = False)
     belongsto = models.ForeignKey(Student , on_delete = models.CASCADE, related_name="tasks")
+    createdby = models.ForeignKey(Teacher, on_delete = models.SET_NULL, related_name= "tasks", null = True, blank = True)
     
     def __str__(self):
         return self.title

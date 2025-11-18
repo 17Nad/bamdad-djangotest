@@ -61,7 +61,7 @@ class UserLogOut(View):
         else: 
             return redirect("students:studentDashboard")
 
-class UserDelete(View):
+class UserDelete(View): #TODO: doesn't work yet
     def get(self, request):
         if request.user.is_authenticated:
             try:

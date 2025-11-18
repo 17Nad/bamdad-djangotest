@@ -1,11 +1,13 @@
 from django.db.models.signals import post_save, pre_save, post_delete, pre_delete
 from django.dispatch import receiver
+from django.contrib.auth.models import User
 from .models import *
 
-# TODO: not compeleted yet
-@receiver(post_save, sender = Student)
-def create_profile(sender, instance, create, **kwargs):
-    if create:
-        Profile.objects.create (
-            belongsto = instance.name,
-            student = instance )
+
+@receiver(post_save, sender = Profile) 
+def determine_role(sender, instance, created, **kwargs):
+    if created: #TODO: How do I trigger a signal with something being modified? (this should run in two situations: when a profile is created and when is_teacher is determined(is_teacher can only be modified once))
+        if instance.is_teacher:
+            Teacher.objects.create(belongsto = instance)
+        else:
+            Student.objects.create(belongsto = instance)

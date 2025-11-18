@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+ <h1>Courses List</h1>
+    <ul>
+            Title | Starting date | Ending date:
+       {% for course in courses %}
+      <li> {{ course.title }} | {{ course.start }} | {{ course.end }}: <buton><a href="{% url 'students:registerInCourses' %}"> Register </a></button> </li>
+        <ul> Members:
+          {% for id in course.student %}
+          <li> {{ course.student.id }} </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    </ul>
+{% endblock %}
