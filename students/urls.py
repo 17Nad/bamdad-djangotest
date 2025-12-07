@@ -1,7 +1,15 @@
-from django.urls import path
+from django.urls import path, include
 from students.views import *
 from students.viewss import *
 from students.api import *
+
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r"get-students", GetStudentsViewSet, basename="getStudents")
+router.register(r"get-courses", GetCoursesViewSet, basename="getCourses")
+router.register(r"get-teachers", GetTeachersViewSet, basename="getTeachers")
+router.register(r"get-profiles", GetProfilesViewSet, basename="getProfiles")
 
 app_name = "students"
 urlpatterns = [
@@ -18,8 +26,11 @@ urlpatterns = [
     path('courses/new-course', CreateCourse.as_view(), name="newCourse"),
     path('all_teachers/', TeacherView.as_view() ) ,
     #_________________________________________________api urls_______________________________________________________________
-    path('api/students/', DisplayAllStudentsAPIView.as_view(), name = 'allStudents'),
-    path('api/students/<int:sid>', DisplayStudentDetailsAPIView.as_view()),
-    path('api/courses/', DisplayAllCoursesAPIView.as_view(), name = 'allCourses'),
-    path('api/courses/<int:sid>', DisplayCourseDetailsAPIView.as_view())
+    path('api/students/', DisplayStudentAPIView.as_view(), name = 'allStudents'),
+    path('api/students/<int:sid>', DisplayStudentAPIView.as_view()),
+    path('api/courses/', DisplayCourseAPIView.as_view(), name = 'allCourses'),
+    path('api/courses/<int:cid>', DisplayCourseAPIView.as_view()),
+    path('api/courses/enroll/', EnrollCourseAPIView.as_view()),
+    path('api/profile/<int:pid>', ProfileAPIView.as_view()),
+    path('api/', include(router.urls)),
 ]

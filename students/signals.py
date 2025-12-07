@@ -6,8 +6,8 @@ from .models import *
 
 @receiver(post_save, sender = Profile) 
 def determine_role(sender, instance, created, **kwargs):
-    if created: #TODO: How do I trigger a signal with something being modified? (this should run in two situations: when a profile is created and when is_teacher is determined(is_teacher can only be modified once))
+    if created: #TODO: How do I trigger a signal with something being modified? (this should run when two conditions are true: when a profile is created and when is_teacher is determined(is_teacher can only be modified once))
         if instance.is_teacher:
-            Teacher.objects.create(belongsto = instance)
+            Teacher.objects.create(user = instance)
         else:
-            Student.objects.create(belongsto = instance)
+            Student.objects.create(user = instance)

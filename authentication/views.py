@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, HttpResponseForbidden
 from django.views import View
-from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import *
 
 """یک view بنویسید که فرم ساده ای برای ایجاد یک دانشجوی جدید (Student) باشد 
@@ -61,16 +62,13 @@ class UserLogOut(View):
         else: 
             return redirect("students:studentDashboard")
 
-class UserDelete(View): #TODO: doesn't work yet
+class UserDelete(View):
     def get(self, request):
-        if request.user.is_authenticated:
-            try:
-                logout(request)
-                request.user.delete()
-                return redirect("authentication:register")
-            except:
-                return HttpResponse("<h1>Error</h1>")
-        else:
+        if not request.user.is_authenticated:
             return HttpResponseForbidden("<h1>403: Access Denied</h1><p>You don't have permission to delete this user!</p>")
-
-# object.is_valid()
+        else:         
+            request.user.delete()
+            logout(request)
+            return redirect("authentication:register")
+            
+            

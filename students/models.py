@@ -3,21 +3,36 @@ from django.contrib.auth.models import User
 # from todo_list.models import Task
 
 
+class Profile(models.Model):
+    name = models.CharField(max_length=128, default="")
+    bio = models.TextField(max_length=512, default="")
+    phone_number = models.CharField (max_length=13, default="+989000000000")
+    birthday = models.DateField(null=True, blank=True)
+    #avatar = models.ImageField(null=True, blank=True)
+    belongsto = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    is_teacher = models.BooleanField(default=False)
+    # status = models.PositiveIntegretuerField(choices=activity_status)
+    
+    def __str__(self):
+        return f"{self.name}'s Profile"
+
 
 class Student (models.Model):
+    #name= Profile.name
     major = models.CharField(max_length=256)
     grade = models.PositiveIntegerField(default=0)
     #achievements = models.ManyToManyField(Achievement, related_name="students")
-    user= models.OneToOneField("Profile", on_delete = models.CASCADE, related_name="student", null = True)
+    user= models.OneToOneField(Profile, on_delete = models.CASCADE, related_name="student", null = True)
     def __str__(self):
         return self.user.name
     
 
 class Teacher (models.Model):
+
     major = models.CharField(max_length=256, null=True, blank=True)
     score = models.PositiveIntegerField(default=0)
     #achievements = models.ManyToManyField(Achievement, related_name="teachers")
-    user = models.OneToOneField("Profile", on_delete = models.CASCADE, related_name="teacher" , null = True)
+    user = models.OneToOneField(Profile, on_delete = models.CASCADE, related_name="teacher" , null = True)
     def __str__(self):
         return self.user.name
     
@@ -29,19 +44,6 @@ class Teacher (models.Model):
 #     3 : "do not disturb"
 #}
 # role = { 1 : Student, 2 : Teacher }
-
-class Profile(models.Model):
-    name = models.CharField(max_length=128, default="")
-    bio = models.TextField(max_length=512, default="")
-    phone_number = models.CharField (max_length=13, default="+989000000000")
-    birthday = models.DateField()
-    #avatar = models.ImageField(null=True, blank=True)
-    belongsto = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    is_teacher = models.BooleanField(default=False)
-    # status = models.PositiveIntegretuerField(choices=activity_status)
-    
-    def __str__(self):
-        return f"{self.name}'s Profile"
     
     
 class Course(models.Model):
